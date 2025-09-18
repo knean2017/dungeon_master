@@ -16,9 +16,9 @@ class Game:
         while True:
             os.system("cls" if os.name == "nt" else "clear")
             print("Select your character:")
-            print(f"1. Knight(HP: {KNIGHT_HP}, Damage: {KNIGHT_DAMAGE_RANGE}, Armor: {KNIGHT_ARMOR}, Range: {KNIGHT_RANGE})")
-            print(f"2. Archer(HP: {ARCHER_HP}, Damage: {ARCHER_ATTACK_RANGE}, Armor: {ARCHER_ARMOR}, Range: {ARCHER_RANGE})")
-            print(f"3. Mage(HP: {MAGE_HP}, Damage: {MAGE_ATTACK_RANGE}, Armor: {MAGE_ARMOR}, Range: {MAGE_RANGE})")
+            print(f"1. Knight(HP: {KNIGHT_HP}, Damage: {KNIGHT_MIN_DMG}-{KNIGHT_MAX_DMG}, Armor: {KNIGHT_ARMOR}, Range: {KNIGHT_RANGE})")
+            print(f"2. Archer(HP: {ARCHER_HP}, Damage: {ARCHER_MIN_DMG}-{ARCHER_MAX_DMG}, Armor: {ARCHER_ARMOR}, Range: {ARCHER_RANGE})")
+            print(f"3. Mage(HP: {MAGE_HP}, Damage: {MAGE_MIN_DMG}-{MAGE_MAX_DMG}, Armor: {MAGE_ARMOR}, Range: {MAGE_RANGE})")
             
             choice = input("Enter the number of your choice: ").strip().lower()
             
@@ -113,6 +113,7 @@ class Game:
             else:
                 os.system("cls" if os.name == "nt" else "clear")
                 input("You Died!")
+                break
 
             
 

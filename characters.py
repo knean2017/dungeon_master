@@ -3,10 +3,11 @@ from stats import *
 
 
 class Character:
-    def __init__(self, name, hp, damage_range, armor, attack_range, position=0):
+    def __init__(self, name, hp, min_dmg, max_dmg, armor, attack_range, position=0):
         self.name = name
         self.hp = hp
-        self.damage_range = damage_range
+        self.min_dmg = min_dmg
+        self.max_dmg = max_dmg
         self.armor = armor
         self.attack_range = attack_range
         self.position = position
@@ -52,9 +53,10 @@ class Knight(Character):
 
     def __init__(self, player_name):
         super().__init__(
-            name=KNIGHT_CLASS, 
+            name=KNIGHT_NAME, 
             hp=KNIGHT_HP, 
-            damage_range=KNIGHT_DAMAGE_RANGE, 
+            min_dmg=KNIGHT_MIN_DMG,
+            max_dmg=KNIGHT_MAX_DMG,
             armor=KNIGHT_ARMOR, 
             attack_range=KNIGHT_RANGE
         )
@@ -64,7 +66,7 @@ class Knight(Character):
         
         if choice == "attack":
             if self.calculate_distance(target) <= self.attack_range:
-                dmg = randint(*self.damage_range)
+                dmg = randint(self.min_dmg, self.max_dmg)
                 target.take_damage(dmg)
                 print(f"{self.name} attacks {target.name} for {dmg} damage!")
             else:
@@ -92,9 +94,10 @@ class Archer(Character):
 
     def __init__(self, player_name):
         super().__init__(
-            name=ARCHER_CLASS, 
+            name=ARCHER_NAME, 
             hp=ARCHER_HP, 
-            damage_range=ARCHER_ATTACK_RANGE, 
+            min_dmg=ARCHER_MIN_DMG,
+            max_dmg=ARCHER_MAX_DMG, 
             armor=ARCHER_ARMOR, 
             attack_range=ARCHER_RANGE
         )
@@ -105,7 +108,7 @@ class Archer(Character):
 
         if choice == "attack":
             if self.calculate_distance(target) <= self.attack_range:
-                dmg = randint(*self.damage_range)
+                dmg = randint(self.min_dmg, self.max_dmg)
                 target.take_damage(dmg)
                 print(f"{self.name} shoots an arrow at {target.name} for {dmg} damage!")
             else:
@@ -149,18 +152,20 @@ class Mage(Character):
 
     def __init__(self, player_name):
         super().__init__(
-            name=MAGE_CLASS, 
+            name=MAGE_NAME, 
             hp=MAGE_HP, 
-            damage_range=MAGE_ATTACK_RANGE, 
+            min_dmg=MAGE_MIN_DMG,
+            max_dmg=MAGE_MAX_DMG, 
             armor=MAGE_ARMOR, 
             attack_range=MAGE_RANGE
         )
         self.player_name = player_name
     
     def do_action(self, choice, target):
+
         if choice == "fireball":
             if self.calculate_distance(target) <= self.attack_range:
-                dmg = randint(*self.damage_range)
+                dmg = randint(self.min_dmg, self.max_dmg)
                 target.take_damage(dmg)
                 print(f"{self.name} casts Fireball on {target.name} for {dmg} damage!")
             else:
@@ -192,16 +197,17 @@ class MeleeGoblin(Character):
         super().__init__(
             name=MELEE_GOBLIN_NAME, 
             hp=MELEE_GOBLIN_HP, 
-            damage_range=MELEE_GOBLIN_ATTACK_RANGE, 
+            min_dmg=MELEE_GOBLIN_MIN_DMG,
+            max_dmg=MELEE_GOBLIN_MAX_DMG, 
             armor=MELEE_GOBLIN_ARMOR, 
             attack_range=MELEE_GOBLIN_RANGE
         )
-        self.position = randint(*MELEE_GOBLIN_POSITION_RANGE)
+        self.position = randint(MELEE_GOBLIN_MIN_POSITION, MELEE_GOBLIN_MAX_POSITION)
     
     def do_action(self, target):
         
         if self.calculate_distance(target) <= self.attack_range:
-            dmg = randint(*self.damage_range)
+            dmg = randint(self.min_dmg, self.max_dmg)
             target.take_damage(dmg)
             input(f"{self.name} attacks {target.name} for {dmg} damage!")
 
@@ -215,17 +221,18 @@ class RangedGoblin(Character):
         super().__init__(
             name=RANGED_GOBLIN_NAME, 
             hp=RANGED_GOBLIN_HP, 
-            damage_range=RANGED_GOBLIN_ATTACK_RANGE,
+            min_dmg=RANGED_GOBLIN_MIN_DMG,
+            max_dmg=RANGED_GOBLIN_MAX_DMG,
             armor=RANGED_GOBLIN_ARMOR,
             attack_range=RANGED_GOBLIN_RANGE
         )
-        self.position = randint(*RANGED_GOBLIN_POSITION_RANGE)
+        self.position = randint(RANGED_GOBLIN_MIN_POSITION, RANGED_GOBLIN_MAX_POSITION)
 
 
     def do_action(self, target):
         
         if self.calculate_distance(target) <= self.attack_range:
-            dmg = randint(*self.damage_range)
+            dmg = randint(self.min_dmg, self.max_dmg)
             input(f"{self.name} throws rock at {target.name} for {dmg} damage!")
             target.take_damage(dmg)
             
